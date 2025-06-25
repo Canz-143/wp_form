@@ -360,33 +360,45 @@
   <script>
     document.getElementById('eventForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      // Add a subtle animation to the submit button
-      const btn = this.querySelector('.submit-btn');
+      const form = e.target;
+      const btn = form.querySelector('.submit-btn');
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => { data[key] = value; });
+      btn.disabled = true;
       btn.style.transform = 'scale(0.98)';
       btn.textContent = 'Wird gesendet...';
-      
-      setTimeout(() => {
-        btn.style.transform = 'scale(1)';
+      fetch('https://hook.eu2.make.com/wk8d9mo0hjr3oureo9iw22y8efnew82r', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Netzwerkfehler');
         btn.textContent = 'Erfolgreich gesendet!';
         btn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
-        
+        setTimeout(() => {
+          form.reset();
+          btn.textContent = 'Absenden';
+          btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+          btn.disabled = false;
+        }, 2000);
+      })
+      .catch(error => {
+        console.error('Fehler beim Senden:', error);
+        btn.textContent = 'Fehler! Bitte erneut versuchen';
+        btn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
         setTimeout(() => {
           btn.textContent = 'Absenden';
           btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        }, 2000);
-      }, 1000);
-      
-      // Here you would normally submit the form data
-      console.log('Form submitted successfully!');
+          btn.disabled = false;
+        }, 3000);
+      });
     });
-
-    // Add floating label effect
     document.querySelectorAll('input, textarea, select').forEach(element => {
       element.addEventListener('focus', function() {
         this.parentElement.style.transform = 'translateY(-2px)';
       });
-      
       element.addEventListener('blur', function() {
         this.parentElement.style.transform = 'translateY(0)';
       });
