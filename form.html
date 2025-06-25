@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Formular</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .logo {
+      max-width: 150px;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .form-title {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      font-weight: 300;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 25px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    label {
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    input[type="datetime-local"],
+    input[type="time"],
+    textarea,
+    select {
+      padding: 12px 16px;
+      border: 2px solid #e1e5e9;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      font-family: inherit;
+    }
+
+    input[type="text"]:focus,
+    input[type="url"]:focus,
+    input[type="datetime-local"]:focus,
+    input[type="time"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: white;
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .time-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      align-items: end;
+    }
+
+    .time-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .time-group label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+    }
+
+    .radio-option:hover {
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #667eea;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .required {
+      color: #e74c3c;
+    }
+
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, #667eea 50%, transparent 100%);
+      margin: 30px 0;
+      border-radius: 1px;
+    }
+
+    .form-section {
+      background: rgba(102, 126, 234, 0.02);
+      padding: 25px;
+      border-radius: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #667eea;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logo.png" alt="Logo" class="logo">
+    
+    <h1 class="form-title">Event Formular</h1>
+    
+    <form id="eventForm">
+      <div class="form-section">
+        <div class="section-title">Grundinformationen</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Event-Titel <span class="required">*</span></label>
+            <input type="text" name="event_title" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Event-Beschreibung <span class="required">*</span></label>
+            <textarea name="event_description" required placeholder="Beschreiben Sie Ihr Event..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Veranstaltungsdatum <span class="required">*</span></label>
+              <input type="datetime-local" name="event_date" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Veranstaltungsort</label>
+              <input type="text" name="location" placeholder="Adresse oder Online">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Dauer des Events</label>
+            <div class="time-inputs">
+              <div class="time-group">
+                <label>Startzeit</label>
+                <input type="time" name="start_time">
+              </div>
+              <div class="time-group">
+                <label>Endzeit</label>
+                <input type="time" name="end_time">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="form-section">
+        <div class="section-title">Event Details</div>
+        <div class="form-grid">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Zielgruppe</label>
+              <input type="text" name="audience" placeholder="z.B. Fachkräfte, Studenten, Allgemein">
+            </div>
+            
+            <div class="form-group">
+              <label>Event-Typ</label>
+              <input type="text" name="event_type" placeholder="z.B. Konferenz, Workshop, Seminar">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Kosten / Teilnahmegebühr</label>
+              <input type="text" name="cost" placeholder="z.B. Kostenlos, 50€, 100-200€">
+            </div>
+            
+            <div class="form-group">
+              <label>Häufigkeit des Events</label>
+              <select name="frequency">
+                <option value="einmalig">Einmalig</option>
+                <option value="wiederkehrend">Wiederkehrend</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Event-Format / Programmpunkte</label>
+            <textarea name="agenda" placeholder="Beschreiben Sie den Ablauf und die Programmpunkte..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="form-section">
+        <div class="section-title">Organisation & Marketing</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Anmeldungsprozess</label>
+            <textarea name="registration_info" placeholder="Wie können sich Teilnehmer anmelden?"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>Event-Website / Social Media Links</label>
+            <input type="url" name="social_links" placeholder="https://example.com">
+          </div>
+          
+          <div class="form-group">
+            <label>Wichtige Deadlines</label>
+            <textarea name="deadlines" placeholder="Anmeldeschluss, Frühbucherrabatt, etc."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>Sponsor(en) / Partner</label>
+            <textarea name="sponsors" placeholder="Namen und Details der Sponsoren/Partner"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>Veröffentlichung</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="visibility" value="public" id="public" checked>
+                <label for="public">Öffentlich</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="visibility" value="private" id="private">
+                <label for="private">Nicht öffentlich</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Notizen / Sonstiges</label>
+            <textarea name="notes" placeholder="Zusätzliche Informationen oder Anmerkungen..."></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="submit-btn">Absenden</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Add a subtle animation to the submit button
+      const btn = this.querySelector('.submit-btn');
+      btn.style.transform = 'scale(0.98)';
+      btn.textContent = 'Wird gesendet...';
+      
+      setTimeout(() => {
+        btn.style.transform = 'scale(1)';
+        btn.textContent = 'Erfolgreich gesendet!';
+        btn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+        
+        setTimeout(() => {
+          btn.textContent = 'Absenden';
+          btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }, 2000);
+      }, 1000);
+      
+      // Here you would normally submit the form data
+      console.log('Form submitted successfully!');
+    });
+
+    // Add floating label effect
+    document.querySelectorAll('input, textarea, select').forEach(element => {
+      element.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'translateY(-2px)';
+      });
+      
+      element.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
+</body>
+</html>
