@@ -364,10 +364,29 @@
       const btn = form.querySelector('.submit-btn');
       const formData = new FormData(form);
       const data = {};
-      formData.forEach((value, key) => { data[key] = value; });
+
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      // Combine date + start/end time into full datetime strings
+      const rawDate = formData.get("event_date")?.split("T")[0]; // YYYY-MM-DD
+      const startTime = formData.get("start_time");
+      const endTime = formData.get("end_time");
+
+      if (rawDate) {
+        if (startTime) {
+          data["event_start"] = `${rawDate} ${startTime}:00`;
+        }
+        if (endTime) {
+          data["event_end"] = `${rawDate} ${endTime}:00`;
+        }
+      }
+
       btn.disabled = true;
       btn.style.transform = 'scale(0.98)';
       btn.textContent = 'Wird gesendet...';
+
       fetch('https://hook.eu2.make.com/wk8d9mo0hjr3oureo9iw22y8efnew82r', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -395,6 +414,7 @@
         }, 3000);
       });
     });
+
     document.querySelectorAll('input, textarea, select').forEach(element => {
       element.addEventListener('focus', function() {
         this.parentElement.style.transform = 'translateY(-2px)';
