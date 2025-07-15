@@ -248,7 +248,24 @@
             
             <div class="form-group">
               <label>Veranstaltungsort</label>
-              <input type="text" name="location" placeholder="Adresse oder Online">
+              <select name="location" id="locationSelect" required>
+                <option value="">-- Bitte wählen --</option>
+                <option value="Kloster Ettal">Kloster Ettal</option>
+                <option value="Basilikia">Basilikia</option>
+                <option value="Klosterbrauerei">Klosterbrauerei</option>
+                <option value="Liqueurmanufaktur">Liqueurmanufaktur</option>
+                <option value="Klostermarkt">Klostermarkt</option>
+                <option value="Land and Forestry">Land and Forestry</option>
+                <option value="Café 1330">Café 1330</option>
+                <option value="Beer Garden">Beer Garden</option>
+                <option value="Cheese Dairy">Cheese Dairy</option>
+                <option value="Monastery Hotel">Monastery Hotel</option>
+                <option value="Gymnasium">Gymnasium</option>
+                <option value="Monastery Courtyard">Monastery Courtyard</option>
+                <option value="Alpine Retreat">Alpine Retreat</option>
+                <option value="Other">Other</option>
+              </select>
+              <input type="text" id="otherLocationInput" name="other_location" placeholder="Bitte geben Sie einen Ort ein" style="margin-top: 10px; display: none;" />
             </div>
           </div>
           
@@ -358,6 +375,19 @@
   </div>
 
   <script>
+    const locationSelect = document.getElementById('locationSelect');
+    const otherInput = document.getElementById('otherLocationInput');
+
+    locationSelect.addEventListener('change', function () {
+      if (this.value === 'Other') {
+        otherInput.style.display = 'block';
+        otherInput.required = true;
+      } else {
+        otherInput.style.display = 'none';
+        otherInput.required = false;
+      }
+    });
+
     document.getElementById('eventForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const form = e.target;
@@ -369,8 +399,13 @@
         data[key] = value;
       });
 
+      // Inject real location if "Other" was chosen
+      if (formData.get("location") === "Other") {
+        data["location"] = formData.get("other_location");
+      }
+
       // Combine date + start/end time into full datetime strings
-      const rawDate = formData.get("event_date")?.split("T")[0]; // YYYY-MM-DD
+      const rawDate = formData.get("event_date")?.split("T")[0];
       const startTime = formData.get("start_time");
       const endTime = formData.get("end_time");
 
@@ -401,6 +436,7 @@
           btn.textContent = 'Absenden';
           btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
           btn.disabled = false;
+          otherInput.style.display = 'none'; // reset other input visibility
         }, 2000);
       })
       .catch(error => {
