@@ -388,6 +388,128 @@
           </div>
         </div>
       </div>
+
+      <div class="section-divider"></div>
+
+      <div class="form-section">
+        <div class="section-title">Kontakt & Promotion</div>
+        <div class="form-grid">
+          <!-- Contact Person Fields -->
+          <div class="form-group">
+            <label>Ansprechpartner Name</label>
+            <input type="text" name="contact_name" placeholder="Name der Kontaktperson">
+          </div>
+          <div class="form-group">
+            <label>Abteilung</label>
+            <input type="text" name="contact_department" placeholder="Abteilung">
+          </div>
+          <div class="form-group">
+            <label>Telefonnummer</label>
+            <input type="text" name="contact_phone" placeholder="Telefonnummer">
+          </div>
+          <div class="form-group">
+            <label>E-Mail-Adresse</label>
+            <input type="email" name="contact_email" placeholder="E-Mail-Adresse">
+          </div>
+
+          <!-- Poster Available Toggle -->
+          <div class="form-group">
+            <label>Poster vorhanden?</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="poster_available" value="Yes" id="poster-yes">
+                <label for="poster-yes">Ja</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="poster_available" value="No" id="poster-no">
+                <label for="poster-no">Nein</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Poster Needs to Be Created Toggle -->
+          <div class="form-group">
+            <label>Poster muss erstellt werden?</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="poster_needed" value="Yes" id="poster-needed-yes">
+                <label for="poster-needed-yes">Ja</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="poster_needed" value="No" id="poster-needed-no">
+                <label for="poster-needed-no">Nein</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Promote on Social Media Toggle -->
+          <div class="form-group">
+            <label>Auf Social Media bewerben?</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="promote_social" value="Yes" id="promote-social-yes">
+                <label for="promote-social-yes">Ja</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="promote_social" value="No" id="promote-social-no">
+                <label for="promote-social-no">Nein</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Promote in Popup on Website Homepage Toggle -->
+          <div class="form-group">
+            <label>Im Popup auf der Startseite bewerben?</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="promote_popup" value="Yes" id="promote-popup-yes">
+                <label for="promote-popup-yes">Ja</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="promote_popup" value="No" id="promote-popup-no">
+                <label for="promote-popup-no">Nein</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Public Title -->
+          <div class="form-group">
+            <label>Öffentlicher Titel</label>
+            <input type="text" name="public_title" placeholder="Titel für die öffentliche Anzeige">
+          </div>
+
+          <!-- Public Description -->
+          <div class="form-group">
+            <label>Öffentliche Beschreibung des Events</label>
+            <textarea name="public_description" placeholder="Beschreibung für die öffentliche Anzeige"></textarea>
+          </div>
+
+          <!-- Visibility Status -->
+          <div class="form-group">
+            <label>Sichtbarkeitsstatus</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="visibility_status" value="Public" id="visibility-public">
+                <label for="visibility-public">Öffentlich</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="visibility_status" value="Internal" id="visibility-internal">
+                <label for="visibility-internal">Intern</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="visibility_status" value="Both" id="visibility-both">
+                <label for="visibility-both">Beides</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes / Remarks / Special Considerations -->
+          <div class="form-group">
+            <label>Bemerkungen / Hinweise / Besonderheiten</label>
+            <textarea name="special_notes" placeholder="Bemerkungen, Hinweise oder Besonderheiten"></textarea>
+          </div>
+        </div>
+      </div>
       
       <button type="submit" class="submit-btn">Absenden</button>
     </form>
