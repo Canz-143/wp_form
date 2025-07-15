@@ -348,7 +348,21 @@
             <label>Sponsor(en) / Partner</label>
             <textarea name="sponsors" placeholder="Namen und Details der Sponsoren/Partner"></textarea>
           </div>
-          
+
+          <div class="form-group">
+            <label>Status</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="status" value="Fixed" id="status-fixed" checked>
+                <label for="status-fixed">Fixed</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="status" value="Not Fixed" id="status-not-fixed">
+                <label for="status-not-fixed">Not Fixed</label>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label>Veröffentlichung</label>
             <div class="radio-group">
@@ -417,6 +431,8 @@
           data["event_end"] = `${rawDate} ${endTime}:00`;
         }
       }
+
+      // Status field is included automatically by FormData above
 
       btn.disabled = true;
       btn.style.transform = 'scale(0.98)';
